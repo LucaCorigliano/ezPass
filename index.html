@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Passgen</title>
+		<link rel="stylesheet" href="main.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab&display=swap" rel="stylesheet"> 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+	</head>
+	<body>
+		<nav class="navbar" role="navigation" aria-label="main navigation">
+		<div class="navbar-brand">
+			<a class="navbar-item" href="/">
+				<h1 class="title">
+					<span class="is-info-color">ez</span>Pass
+				</h1>
+			
+			</a>
+
+		</div>
+
+		</nav>
+		<section class="section is-material-blue-background is-bold main-section">
+		<section class="hero ">
+		<div class="hero-body">
+			<div class="container">
+			<h1 class="title">
+				Safe, easy to Remember Password Generator
+			</h1>
+			<h2 class="subtitle">
+				No more garbled text, we create strong passwords about stuff you like.
+			</h2>
+			</div>
+		</div>
+		</section>
+			<div class="container main-container">
+
+				<div id="app" class="box">
+					<form @submit.prevent="generatePassword">
+						<h3	class="title search_title is-dark-color has-text-centered">
+							Give me a password about
+							<input id="wikipedia_search" type="text" v-model="page">
+						</h3>						
+					</form>
+					<div id="password_field">
+						<div class="field has-addons">
+							<div class="control is-expanded">
+								
+								<span id="password_result" :class="{'is-danger':error, 'is-primary' : copy_icon, 'copying': copy_icon}" class="input is-large" >
+									<span v-html="current_password">
+									
+									</span>
+								</span>
+							</div>
+
+							
+							<div class="control is-hidden-touch">
+								<button @click="debounced_copy" aria-label="Copy password":class="{'copying': copy_icon}" class="button is-info is-copy-button has-label is-large">
+									<span class="icon is-large ">
+									<i class="fas fa-copy"></i>
+									</span>
+								</button>
+							</div>		
+							<div class="control is-hidden-touch">
+								<button @click="generatePassword" aria-label="Generate password" :class="{'loading': loading_icon}" class="button is-primary is-refresh-button has-label is-large">
+									<span class="icon is-large ">
+									<i class="fa fa-sync"></i>
+									</span>
+								</button>
+							</div>		
+							
+
+							
+						</div>
+						<p class="help" >Data source: wikipedia.org/<span v-html="source"></span></p>
+						<div class="buttons is-hidden-desktop">
+							<button @click="copy" aria-label="Copy password":class="{'copying': copy_icon}" class="button is-info is-copy-button has-label is-large">
+								<span class="icon is-large ">
+								<i class="fas fa-copy"></i>
+								</span>
+								<span>
+									Copy
+								</span>
+							</button>
+		
+							<button @click="generatePassword" aria-label="Generate password" :class="{'loading': loading_icon}" class="button is-primary is-refresh-button has-label is-large">
+								<span class="icon is-large ">
+								<i class="fa fa-sync"></i>
+								</span>
+								<span>
+									Generate
+								</span>
+							</button>					
+						</div>
+						
+					</div>
+					
+					<div class="columns" id="settings_container">
+						<div class="column">
+							<div class="field">
+								<div class="control">
+									<label for="word_count_range" class="label is-large">How many words?</label>
+									<div class="range_wrapper" id="word_count_range">
+										<input :min="min_word_count" :max="max_word_count" v-model="word_count" type="range" class="is-xlarge ">
+										<div class="ticks">
+											<span v-for="n in max_word_count-min_word_count+1" >{{ getTickText(n + min_word_count - 1) }} </span>
+										
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="column">
+							<div class="field">
+					
+								<label class="label is-large">Customize it!</label>
+								<span class="control">
+									<label class="is-checkbox">
+										<input id="mycheckbox" checked="checked" type="checkbox" v-model="add_symbols">
+										<span class="iconcheckmark">
+											<i class="fa fa-check"></i>
+										</span>
+										<span>Add symbols ($!#@_...)</span>
+									</label>
+
+								</span>
+								<span class="control">
+									<label class="is-checkbox ">
+										<input id="mycheckbox" checked="checked" type="checkbox" v-model="capitalize">
+										<span class="iconcheckmark">
+											<i class="fa fa-check"></i>
+										</span>
+										<span>Capitalize words</span>
+									</label>
+
+								</span>					
+								<span class="control">
+									<label class="is-checkbox ">
+										<input id="mycheckbox" checked="checked" type="checkbox" v-model="add_numbers">
+										<span class="iconcheckmark">
+											<i class="fa fa-check"></i>
+										</span>
+										<span>Add numbers</span>
+									</label>
+
+								</span>					
+							</div>
+						</div>	
+					
+					
+					
+					</div>
+
+				</div>
+
+			</div>
+		
+		</section>
+		<footer class="footer bottom">
+		<div class="content has-text-centered">
+			<p>
+				<strong>ezPass</strong> by <a href="https://luca.corigliano.me" target="_blank">Luca Corigliano.</a>
+				Released under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a> license.
+			</p>
+		</div>
+		</footer>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="ext/v-clipboard/v-clipboard.js"></script>
+		
+		<script src="ext/bulma-range/webkit-shim.js"></script>
+		<script src="main.js"></script>
+	</body>
+</html>

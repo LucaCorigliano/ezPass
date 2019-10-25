@@ -1,0 +1,251 @@
+.range_wrapper {
+
+  margin: .2rem;
+  
+	input[type=range] {
+	  /* Configure here with classes or with inline css */
+	  padding: .8rem;
+
+	  border-radius: 0.2em;
+	  transition: background-color .1s linear, box-shadow .1s linear;
+	 
+
+	  width: 100%;
+	  display: block;
+
+	  --thumb_height: #{$size-medium};
+	  --thumb_width: calc(var(--thumb_height) * 0.6);
+	  --thumb_radius: #{$radius-large};
+	  --thumb_color: #{$primary};
+	  --thumb_color_hover: #{saturate($primary, 50%)};
+	  --track_height: calc(var(--thumb_height) * 0.3);
+	  --track_radius: #{$radius-large};
+	  --track_color: #{invert($grey_light, 10%)};
+	  --track_color_filled: #{darken($primary, 20%)};
+	  --focused_color: var(--thumb_color);
+
+	   height: calc(var(--thumb_height) * 1.5);
+	  /* Override stuff */
+	  -webkit-appearance: none;
+	  appearance: none;
+	  background: transparent;
+
+	  &:hover {
+		outline: none;
+		@mixin hover {
+		  background-color: var(--thumb_color_hover);
+		}
+		&::-webkit-slider-thumb {
+		  @include hover();
+		}
+		&::-moz-range-thumb {
+		  @include hover();
+		}
+		&::-ms-thumb {
+		  @include hover();
+		}
+	  }
+	  /* This is for accessibility reasons */
+	  &:focus {
+		box-shadow: 0 0 .2em 0 var(--focused_color);
+	  }
+	  
+	  /* Ticks support */
+	  
+
+
+
+	  @mixin trackFilled {
+		background: var(--track_color_filled);
+		height: var(--track_height);
+		border-radius: var(--track_radius);
+	  }
+	  @mixin trackFilledWebkit {
+		background: linear-gradient(to right, var(--track_color_filled) var(--bgFillPerc), var(--track_color) var(--bgFillPerc));
+		height: var(--track_height);
+		border-radius: var(--track_radius);
+	  }
+	  @mixin track {
+		width: 100%;
+		background: var(--track_color);
+		height: var(--track_height);
+		border-radius: var(--track_radius);
+	  }
+	  @mixin thumb() {
+		-webkit-appearance: none; /* Override default look */
+		appearance: none;    
+		cursor: pointer;
+		background: var(--thumb_color);
+		border-radius: var(--thumb_radius);
+		width: var(--thumb_width);
+		height: var(--thumb_height);   
+		border: none;
+		transition: inherit;
+	  }
+
+	  /*&::-ms-fill-lower {
+	  @include trackFilled();
+	}*/
+	  &::-moz-range-progress {
+		@include trackFilled();
+	  } 
+
+	  &::-webkit-slider-runnable-track {
+		@include trackFilledWebkit();
+	  }
+	  &::-moz-range-track {
+		@include track();
+	  }
+	  &::-ms-fill-upper {
+		@include track();
+	  }  
+
+
+
+
+	  &::-webkit-slider-thumb {
+		@include thumb();
+		// Fucking webkit
+		transform: translate(0, calc(var(--track_height) *-1.5));
+	  }
+	  &::-moz-range-thumb {
+		@include thumb();
+	  }
+	  &::-ms-thumb {
+		@include thumb();
+	  }
+	  &::-ms-track {
+		background: transparent; 
+		border-color: transparent;
+		color: transparent;
+	  }
+	  /* Default classes */
+	  &.is-large {
+		--thumb_height: #{$size-large};
+	  }
+	  &.is-xlarge {
+		--thumb_height: #{$size-large*1.5};
+	  }
+	  &.is-small {
+		--thumb_height: #{$size-small};
+	  }
+	  &.is-circle {
+		--thumb_width: var(--thumb_height);
+		--thumb_radius: 50%;
+	  }
+	  &.is-info {
+		--track_color_filled:   #{darken($info, 20%)};
+		--thumb_color: #{$info};
+		--thumb_color_hover: #{lighten($info, 10%)};
+	  }
+	  &.is-warning {
+		--track_color_filled:   #{darken($warning, 20%)};
+		--thumb_color: #{$warning};
+		--thumb_color_hover: #{lighten($warning, 10%)};
+	  } 
+	   &.is-danger {
+		--track_color_filled:   #{darken($danger, 20%)};
+		--thumb_color: #{$danger};
+		--thumb_color_hover: #{lighten($danger, 10%)};
+	  }
+	  &.is-full {
+		--track_height: calc(var(--thumb_height) - 15%);
+		  &::-webkit-slider-thumb {
+			transform: translate(0, calc(var(--track_height) *-0.15));
+		  }
+	  }
+	  &.is-arrow-top {
+		@mixin thumb-arrow-top() {
+		  border-top-left-radius: 50%;
+		  border-top-right-radius: 50%;
+		  box-shadow: 0 calc(var(--thumb_height)*-0.2) 0 calc(var(--thumb_height)*-0.15) var(--thumb_color);
+		}
+		@mixin thumb-arrow-top-hover() {
+		  box-shadow: 0 calc(var(--thumb_height)*-0.2) 0 calc(var(--thumb_height)*-0.15) var(--thumb_color_hover);
+		}
+		&::-webkit-slider-thumb {
+		  @include thumb-arrow-top();
+		  &:hover {@include thumb-arrow-top-hover();}
+		}
+		&::-moz-range-thumb {
+		  @include thumb-arrow-top();
+		  &:hover {@include thumb-arrow-top-hover();}
+		}
+		&::-ms-thumb {
+		  @include thumb-arrow-top();
+		  &:hover {@include thumb-arrow-top-hover();}
+		}
+		
+		&:hover {
+		  &::-webkit-slider-thumb {
+			@include thumb-arrow-top-hover();
+		  }
+		  &::-moz-range-thumb {
+			@include thumb-arrow-top-hover();
+		  }
+		  &::-ms-thumb {
+			@include thumb-arrow-top-hover();
+		  }      
+		}
+	  }  
+	  &.is-arrow-bottom {
+		@mixin thumb-arrow-bottom() {
+		  border-bottom-left-radius: 50%;
+		  border-bottom-right-radius: 50%;
+		  
+		}
+
+		&::-webkit-slider-thumb {
+		  @include thumb-arrow-bottom();
+		}
+		&::-moz-range-thumb {
+		  @include thumb-arrow-bottom();
+		}
+		&::-ms-thumb {
+		  @include thumb-arrow-bottom();
+		}
+	  }
+	
+	}
+  .ticks {
+	width: 100%;
+	padding: .8rem;
+	position: relative;
+	--tick_line_color: #{$grey_light};
+	--tick_color: #{$light};
+	--tick_bg_color: #{darken($primary, 10%)};
+	display: flex;
+	justify-content: space-between;
+	&.is-warning {
+		--tick_bg_color: #{darken($warning, 10%)};
+	}
+	&.is-info {
+		--tick_bg_color: #{darken($info, 10%)};
+	}
+	&.is-danger {
+		--tick_bg_color: #{darken($danger, 10%)};
+	}
+	span {
+		//position: absolute;
+		content:attr(data-text);
+		background: var(--tick_bg_color);
+		color: var(--tick_color);
+		padding: 0em 0.4em;
+		text-transform: uppercase;
+		border-radius: $radius-large;
+		position: relative;
+		&:before {
+			content: '';
+			width: 1px;
+			height: 0.5em;
+			position:absolute;
+			top: -70%;
+			left: 50%;
+			transform: translate(-50%, 0);
+			background:var(--tick_line_color);
+		}
+		
+		//transform: translate(-50%,0);
+	}
+  }
+}
