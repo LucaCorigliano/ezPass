@@ -9,13 +9,16 @@ The inspiration comes from [XKCD #936](https://xkcd.com/936/)... yeah, I know, t
 ## Is it available in \<language\>?
 For now, only english is supported. I might add Italian support at some point. If you want to add support for more languages, just submit a pull request.
 
-## Is it actually safe?
-Well, *yes and no*. Words still come in a finite number, so **bruteforcing** with the right dictionary is still possible, but if you add some numbers and symbols at the start or at the end, you should be pretty safe out there.
+## Why is this better than just random characters?
+For a character-by-character bruteforcing algorithm `dgFYUfigUI5_` and `HappyHorse5_` will take similar amounts of time in order to be cracked.
 
-Also, not everyone will use word-based passwords, which means that bruteforcing for single characters is still mainstream.
+### So is this safer than regular passwords?
+Well, *yes and no*. Words still come in a finite number, so if you have a complete enough **dictionary**, word-by-word bruteforcing could crack your password in seconds. That being said, ezPass relies on Wikipedia which means it can wield a gigantic amount of words. If you choose a **specific** enough topic, hackers will have a **tough** time cracking your password and you will hardly ever forget it.
 
-### So is it?
-**Sure**, any password complex enough is safe.
+Also, you could add some numbers and symbols at the end and/or the start of your password, security will be greatily improved.
+
+#### This didn't really answer my question. Is it safe?
+**Sure**, any password complex enough is safe, and the ones **ezPass** generates are also easy to remember.
 Just don't **leak** them, don't use the same password on different websites and change them as often as you can.
 
 ## Can I make my own generator?
