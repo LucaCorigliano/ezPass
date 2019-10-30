@@ -15,7 +15,7 @@ For a character-by-character bruteforcing algorithm `dgFYUfigUI5_` and `HappyHor
 ### So is this safer than regular passwords?
 Well, *yes and no*. Words still come in a finite number, so if you have a complete enough **dictionary**, word-by-word bruteforcing could crack your password in seconds. That being said, ezPass relies on Wikipedia which means it can wield a gigantic amount of words. If you choose a **specific** enough topic, hackers will have a **tough** time cracking your password and you will hardly ever forget it.
 
-Also, if could add some numbers and symbols at the end and/or the start of your password, it will become even safer!
+Also, if you add some numbers and symbols at the end and/or the start of your password, it will become even safer!
 
 #### This didn't really answer my question. Is it safe?
 **Sure**, any password complex enough is safe, and the ones **ezPass** generates are also easy to remember.
