@@ -1,1 +1,0 @@
-https://github.com/euvl/v-clipboard

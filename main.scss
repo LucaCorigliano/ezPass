@@ -2,7 +2,29 @@
 @import "ext/bulma-range/bulma-range.scss";
 @import "ext/bulma-checkbox/bulma-checkbox.scss";
 
-$footer-height: 120px;
+$footer-height: 160px;
+
+.is-color-0 {
+	color : #03c03c;
+}
+.is-color-1 {
+	color : #579abe;
+}
+.is-color-2 {
+	color : #976ed7;
+}
+.is-color-3 {
+	color : #c23b23;
+}
+.is-color-4 {
+	color : #f39a27;
+}
+.is-symbol {
+ 	color: #4E6B8A;
+}
+.is-number {
+	color: #F6AE2D;
+}
 
 /* Main color rules */
 .is-material-blue-background {
@@ -32,8 +54,8 @@ $footer-height: 120px;
 }
 .container.main-container {
 	max-width: 1024px;
-	
-	
+
+
 }
 .footer {
 	height: $footer-height;
@@ -64,23 +86,25 @@ $footer-height: 120px;
 		}
 	}
 	.button.is-large{
-		font-size: $size-5 !important;	
+		font-size: $size-5 !important;
 		@media screen and (max-width: 800px) {
 			font-size: $size-6 !important;
-		}	
-	
+		}
+
 	}
 	.input.is-large, .button.is-large {
 		font-size: $size-4 !important;
-		
+
 		@media screen and (max-width: 600px) {
 			font-size: $size-5 !important;
-		}	
+		}
 		@media screen and (max-width: 400px) {
 			font-size: $size-6 !important;
-		}	
-	
+		}
+
 	}
+
+	.control {max-width: 100%;}
 
 }
 #word_count_range {
@@ -96,7 +120,8 @@ $footer-height: 120px;
 	overflow-y: hidden;
 	@media screen and (max-width: 600px) {
 		word-wrap: break-word;
-	}	
+	}
+
 	/* Mozilla */
 	scrollbar-color: transparent transparent;
 	scrollbar-width: thin;
@@ -112,8 +137,8 @@ $footer-height: 120px;
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background: $grey-light; 
-	}	
+		background: $grey-light;
+	}
 }
 
 
@@ -135,18 +160,18 @@ $footer-height: 120px;
 		content: 'Copied!';
 	}
 	&.copying .icon  {
-		animation-play-state: running;		
+		animation-play-state: running;
 	}
 }
 
 .button.is-refresh-button {
 	.icon {
-		
+
 		animation: refresh .3s ease-in-out 0s infinite both;
 		animation-play-state: paused;
 	}
 	&.loading .icon  {
-		animation-play-state: running;		
+		animation-play-state: running;
 	}
 }
 @keyframes copy {
@@ -159,13 +184,13 @@ $footer-height: 120px;
 	to { transform: rotate(180deg); }
 }
 
-/* Helper stuff */ 
+/* Helper stuff */
 .has-label {
 	position: relative;
 	&:after {
 		display: block;
 		position: absolute;
-		
+
 		width: auto;
 		padding: .2em .5em;
 		border-radius: $radius;

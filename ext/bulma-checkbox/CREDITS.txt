@@ -1,2 +1,0 @@
-bulma-checkbox is a work-in-progress input[type=checkbox] addon for Bulma.io
-2019 - Luca Corigliano

@@ -1,2 +1,0 @@
-bulma-range is a work-in-progress input[type=range] addon for Bulma.io
-2019 - Luca Corigliano

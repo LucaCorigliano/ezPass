@@ -1,21 +1,20 @@
 // THANKS WEBKIT
 function refreshFillPerc(el) {
-var val = $(el).val();
-var min = $(el).attr('min');
-var max = $(el).attr('max');
-val -= min;
-max -= min;
-if(!max) max = 100;
-var prc = (val/max)*100 + 0.5;
-$(el).css('--bgFillPerc', prc + '%');
-$(el).css('--bgFillPerc', prc + '%');
+  var val = el.value;
+  var min = el.getAttribute('min');
+  var max = el.getAttribute('max');
+  val -= min;
+  max -= min;
+  if(!max) max = 100;
+  var prc = (val/max)*100 + 0.5;
+  el.style.setProperty('--bgFillPerc', prc + '%');
+  el.style.setProperty('--bgFillPerc', prc + '%');
 }
-$(document).ready(function() {
-  
 
-  $('.range_wrapper input[type=range]').on('input', function () {
-      refreshFillPerc(this);
+
+document.querySelectorAll(".range_wrapper input[type=range]").forEach(function(el) {
+  this.addEventListener('input', function (evt) {
+    refreshFillPerc(el);
   });
-  $('.range_wrapper input[type=range]').each(function(i) {  refreshFillPerc(this); })
-  
+  refreshFillPerc(el);
 });
